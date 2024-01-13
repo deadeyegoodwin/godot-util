@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://dm22mk3qqk47r"]
+
+[ext_resource type="Script" path="res://smooth_curve_test.gd" id="1_28hw6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ei1ty"]
+albedo_color = Color(0.827451, 0, 0.831373, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_50yjj"]
+bake_interval = 0.0001
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hmom8"]
+albedo_color = Color(0, 0.733333, 0.00784314, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_ld3op"]
+bake_interval = 0.0001
+
+[node name="SmoothCurveTest" type="Node"]
+script = ExtResource("1_28hw6")
+curve_bake_interval = 0.0001
+
+[node name="Marker3D" type="Marker3D" parent="."]
+
+[node name="SmoothCurve" type="CSGPolygon3D" parent="."]
+polygon = PackedVector2Array(-0.005, -0.005, -0.005, 0.005, 0.005, 0.005, 0.005, -0.005)
+mode = 2
+path_node = NodePath("Path3D")
+path_interval_type = 1
+path_interval = 0.01
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_ei1ty")
+
+[node name="Path3D" type="Path3D" parent="SmoothCurve"]
+visible = false
+curve = SubResource("Curve3D_50yjj")
+
+[node name="NonSmoothCurve" type="CSGPolygon3D" parent="."]
+polygon = PackedVector2Array(-0.005, -0.005, -0.005, 0.005, 0.005, 0.005, 0.005, -0.005)
+mode = 2
+path_node = NodePath("Path3D")
+path_interval_type = 1
+path_interval = 0.01
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_hmom8")
+
+[node name="Path3D" type="Path3D" parent="NonSmoothCurve"]
+visible = false
+curve = SubResource("Curve3D_ld3op")
